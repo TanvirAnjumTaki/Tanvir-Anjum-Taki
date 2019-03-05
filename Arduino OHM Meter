@@ -1,0 +1,27 @@
+
+#include <LiquidCrystal.h>                          //lcd r library eta 
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);              //LCD r kun kun pin e connect korsi oi pin nmbr gula. ek serial e likhte hbe.. 
+
+int Vin=5;
+int analogPin=0;
+float Vout=0;
+float R1=220;
+float R2=0;
+int A2D=0;
+
+void setup() {
+lcd.begin(16, 2);                                   //lcd te show koranor jnne. ar lcd r ratio 16:2...
+  }
+
+void loop()
+{
+ A2D=analogRead(analogPin);                        // anlg data theke dgtl data te cnvrt hobe..
+ 
+  Vout=(A2D*Vin)/1024.0;                           //anlg pin 0 theke 1024 prjnto output dite pare. but arduino 5 volt porjonto nite pare. so oi anlg rtead ta k 5 volt e cnvrt krte eta... 
+  R2=R1*(Vout/(Vin-Vout));                         // voltage devider law apply kora hoise
+
+  lcd.setCursor(9, 1);                            //output ta display r koi dekhabe oita indicate kore disi. ekhane 9 nmbr clm er 1 nmbr sari te dekhabe
+  lcd.print("R2=");
+  lcd.println(R2);
+
+}
